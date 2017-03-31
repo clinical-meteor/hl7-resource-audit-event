@@ -3,11 +3,13 @@
 //==========================================================================================
 // Global Configs  
 
+var fhirVersion = 'fhir-3.0.0';
 
 if(typeof oAuth2Server === 'object'){
   // TODO:  double check that this is needed; and that the /api/ route is correct
   JsonRoutes.Middleware.use(
-    '/api/*',
+    // '/api/*',
+    '/fhir-3.0.0/*',
     oAuth2Server.oauthserver.authorise()   // OAUTH FLOW - A7.1
   );
 }
@@ -57,7 +59,7 @@ JsonRoutes.sendResult = function (res, options) {
 //==========================================================================================
 // Step 1 - Create New AuditEvent  
 
-JsonRoutes.add("put", "/fhir-1.6.0/AuditEvent/:id", function (req, res, next) {
+JsonRoutes.add("put", "/" + fhirVersion + "/AuditEvent/:id", function (req, res, next) {
   process.env.DEBUG && console.log('PUT /fhir-1.6.0/AuditEvent/' + req.params.id);
   //process.env.DEBUG && console.log('PUT /fhir-1.6.0/AuditEvent/' + req.query._count);
 
@@ -198,7 +200,7 @@ JsonRoutes.add("put", "/fhir-1.6.0/AuditEvent/:id", function (req, res, next) {
 //==========================================================================================
 // Step 2 - Read AuditEvent  
 
-JsonRoutes.add("get", "/fhir-1.6.0/AuditEvent/:id", function (req, res, next) {
+JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent/:id", function (req, res, next) {
   process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/' + req.params.id);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -252,7 +254,7 @@ JsonRoutes.add("get", "/fhir-1.6.0/AuditEvent/:id", function (req, res, next) {
 //==========================================================================================
 // Step 3 - Update AuditEvent  
 
-JsonRoutes.add("post", "/fhir-1.6.0/AuditEvent", function (req, res, next) {
+JsonRoutes.add("post", "/" + fhirVersion + "/AuditEvent", function (req, res, next) {
   process.env.DEBUG && console.log('POST /fhir/AuditEvent/', JSON.stringify(req.body, null, 2));
 
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -351,7 +353,7 @@ JsonRoutes.add("post", "/fhir-1.6.0/AuditEvent", function (req, res, next) {
 //==========================================================================================
 // Step 4 - AuditEventHistoryInstance
 
-JsonRoutes.add("get", "/fhir-1.6.0/AuditEvent/:id/_history", function (req, res, next) {
+JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent/:id/_history", function (req, res, next) {
   process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/', req.params);
   process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/', req.query._count);
 
@@ -406,7 +408,7 @@ JsonRoutes.add("get", "/fhir-1.6.0/AuditEvent/:id/_history", function (req, res,
 
 // NOTE:  We've not implemented _history functionality yet; so this endpoint is mostly a duplicate of Step 2.
 
-JsonRoutes.add("get", "/fhir-1.6.0/AuditEvent/:id/_history/:versionId", function (req, res, next) {
+JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent/:id/_history/:versionId", function (req, res, next) {
   process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/:id/_history/:versionId', req.params);
   //process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/:id/_history/:versionId', req.query._count);
 
@@ -516,7 +518,7 @@ generateDatabaseQuery = function(query){
   return databaseQuery;
 }
 
-JsonRoutes.add("get", "/fhir-1.6.0/AuditEvent", function (req, res, next) {
+JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent", function (req, res, next) {
   process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent', req.query);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -564,7 +566,7 @@ JsonRoutes.add("get", "/fhir-1.6.0/AuditEvent", function (req, res, next) {
 //==========================================================================================
 // Step 6 - AuditEvent Search Type  
 
-JsonRoutes.add("post", "/fhir-1.6.0/AuditEvent/:param", function (req, res, next) {
+JsonRoutes.add("post", "/" + fhirVersion + "/AuditEvent/:param", function (req, res, next) {
   process.env.DEBUG && console.log('POST /fhir-1.6.0/AuditEvent/' + JSON.stringify(req.query));
 
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -628,7 +630,7 @@ JsonRoutes.add("post", "/fhir-1.6.0/AuditEvent/:param", function (req, res, next
 //==========================================================================================
 // Step 7 - AuditEvent Delete    
 
-JsonRoutes.add("delete", "/fhir-1.6.0/AuditEvent/:id", function (req, res, next) {
+JsonRoutes.add("delete", "/" + fhirVersion + "/AuditEvent/:id", function (req, res, next) {
   process.env.DEBUG && console.log('DELETE /fhir-1.6.0/AuditEvent/' + req.params.id);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
