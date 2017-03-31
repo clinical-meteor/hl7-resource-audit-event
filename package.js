@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:hl7-resource-audit-event',
-  version: '1.2.0',
+  version: '1.2.2',
   summary: 'HL7 FHIR Resource - AuditEvent',
   git: 'https://github.com/clinical-meteor/hl7-resource-audit-event',
   documentation: 'README.md'
@@ -14,11 +14,12 @@ Package.onUse(function (api) {
   api.use('aldeed:simple-schema@1.3.3');
   api.use('aldeed:collection2@2.5.0');
   api.use('simple:json-routes@2.1.0');
-  api.use('prime8consulting:meteor-oauth2-server@0.0.2');
+  api.use('clinical:fhir-vault-server@0.0.3', ['client', 'server'], {weak: true});
 
   api.use('clinical:base-model@1.3.5');
   api.use('clinical:hl7-resource-datatypes@0.6.8');
   api.use('clinical:hl7-resource-bundle@1.3.10');
+  api.use('clinical:hl7-resource-binary@1.0.5');
 
   api.addFiles('lib/hl7-resource-audit-event.js', ['client', 'server']);
   api.addFiles('server/rest.js', 'server');
