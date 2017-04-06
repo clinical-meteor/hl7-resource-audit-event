@@ -52,21 +52,6 @@ var newAuditEvent = {
     {
       "role": [
         {
-          "text": "Service User (Logon)"
-        }
-      ],
-      "userId": {
-        "value": "Grahame"
-      },
-      "requestor": false,
-      "network": {
-        "address": "127.0.0.1",
-        "type": "2"
-      }
-    },
-    {
-      "role": [
-        {
           "coding": [
             {
               "system": "http://dicom.nema.org/resources/ontology/DCM",
