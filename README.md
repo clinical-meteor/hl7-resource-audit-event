@@ -8,7 +8,7 @@ HL7 FHIR Resource - Audit Event
 The resource in this package implements the `FHIR 3.0.0` version of the AuditEvent resource schema, specified at  [https://www.hl7.org/fhir/auditevent.html](https://www.hl7.org/fhir/auditevent.html).  
 
 
-===============================
+--------------------------------------------  
 #### Installation  
 
 ````bash
@@ -173,7 +173,7 @@ This package conforms to version `FHIR 3.0.0`, as per the Touchstone testing uti
 If you're working with HL7 FHIR Resources, we recommend using [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en).
 
 
-===============================
+--------------------------------------------  
 #### Licensing  
 
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
