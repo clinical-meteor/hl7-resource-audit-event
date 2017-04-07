@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:hl7-resource-audit-event',
-  version: '1.3.6',
+  version: '1.4.0',
   summary: 'HL7 FHIR Resource - AuditEvent',
   git: 'https://github.com/clinical-meteor/hl7-resource-audit-event',
   documentation: 'README.md'

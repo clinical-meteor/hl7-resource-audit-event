@@ -60,8 +60,8 @@ JsonRoutes.sendResult = function (res, options) {
 // Step 1 - Create New AuditEvent  
 
 JsonRoutes.add("put", "/" + fhirVersion + "/AuditEvent/:id", function (req, res, next) {
-  process.env.DEBUG && console.log('PUT /fhir-1.6.0/AuditEvent/' + req.params.id);
-  //process.env.DEBUG && console.log('PUT /fhir-1.6.0/AuditEvent/' + req.query._count);
+  process.env.DEBUG && console.log('PUT /fhir-3.0.0/AuditEvent/' + req.params.id);
+  //process.env.DEBUG && console.log('PUT /fhir-3.0.0/AuditEvent/' + req.query._count);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("content-type", "application/fhir+json");
@@ -118,7 +118,7 @@ JsonRoutes.add("put", "/" + fhirVersion + "/AuditEvent/:id", function (req, res,
               process.env.TRACE && console.log('result', result);
               res.setHeader("Location", "fhir/AuditEvent/" + result);
               res.setHeader("Last-Modified", new Date());
-              res.setHeader("ETag", "1.6.0");
+              res.setHeader("ETag", "3.0.0");
 
               var auditEvents = AuditEvents.find({_id: req.params.id});
               var payload = [];
@@ -152,7 +152,7 @@ JsonRoutes.add("put", "/" + fhirVersion + "/AuditEvent/:id", function (req, res,
               process.env.TRACE && console.log('result', result);
               res.setHeader("Location", "fhir/AuditEvent/" + result);
               res.setHeader("Last-Modified", new Date());
-              res.setHeader("ETag", "1.6.0");
+              res.setHeader("ETag", "3.0.0");
 
               var auditEvents = AuditEvents.find({_id: req.params.id});
               var payload = [];
@@ -201,7 +201,7 @@ JsonRoutes.add("put", "/" + fhirVersion + "/AuditEvent/:id", function (req, res,
 // Step 2 - Read AuditEvent  
 
 JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent/:id", function (req, res, next) {
-  process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/' + req.params.id);
+  process.env.DEBUG && console.log('GET /fhir-3.0.0/AuditEvent/' + req.params.id);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("content-type", "application/fhir+json");
@@ -309,9 +309,9 @@ JsonRoutes.add("post", "/" + fhirVersion + "/AuditEvent", function (req, res, ne
           }
           if (result) {
             process.env.TRACE && console.log('result', result);
-            res.setHeader("Location", "fhir-1.6.0/AuditEvent/" + result);
+            res.setHeader("Location", "fhir-3.0.0/AuditEvent/" + result);
             res.setHeader("Last-Modified", new Date());
-            res.setHeader("ETag", "1.6.0");
+            res.setHeader("ETag", "3.0.0");
 
             var auditEvents = AuditEvents.find({_id: result});
             var payload = [];
@@ -354,8 +354,8 @@ JsonRoutes.add("post", "/" + fhirVersion + "/AuditEvent", function (req, res, ne
 // Step 4 - AuditEventHistoryInstance
 
 JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent/:id/_history", function (req, res, next) {
-  process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/', req.params);
-  process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/', req.query._count);
+  process.env.DEBUG && console.log('GET /fhir-3.0.0/AuditEvent/', req.params);
+  process.env.DEBUG && console.log('GET /fhir-3.0.0/AuditEvent/', req.query._count);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("content-type", "application/fhir+json");
@@ -409,8 +409,8 @@ JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent/:id/_history", function (
 // NOTE:  We've not implemented _history functionality yet; so this endpoint is mostly a duplicate of Step 2.
 
 JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent/:id/_history/:versionId", function (req, res, next) {
-  process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/:id/_history/:versionId', req.params);
-  //process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent/:id/_history/:versionId', req.query._count);
+  process.env.DEBUG && console.log('GET /fhir-3.0.0/AuditEvent/:id/_history/:versionId', req.params);
+  //process.env.DEBUG && console.log('GET /fhir-3.0.0/AuditEvent/:id/_history/:versionId', req.query._count);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("content-type", "application/fhir+json");
@@ -519,7 +519,7 @@ generateDatabaseQuery = function(query){
 }
 
 JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent", function (req, res, next) {
-  process.env.DEBUG && console.log('GET /fhir-1.6.0/AuditEvent', req.query);
+  process.env.DEBUG && console.log('GET /fhir-3.0.0/AuditEvent', req.query);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("content-type", "application/fhir+json");
@@ -567,24 +567,96 @@ JsonRoutes.add("get", "/" + fhirVersion + "/AuditEvent", function (req, res, nex
 // Step 6 - AuditEvent Search Type  
 
 JsonRoutes.add("post", "/" + fhirVersion + "/AuditEvent/:param", function (req, res, next) {
-  process.env.DEBUG && console.log('POST /fhir-1.6.0/AuditEvent/' + JSON.stringify(req.query));
+  process.env.DEBUG && console.log('POST /fhir-3.0.0/AuditEvent/' + JSON.stringify(req.query));
 
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("content-type", "application/fhir+json");
 
   var accessTokenStr = (req.params && req.params.access_token) || (req.query && req.query.access_token);
+  var accessToken;
+  
   if(typeof oAuth2Server === 'object'){
-    var accessToken = oAuth2Server.collections.accessToken.findOne({accessToken: accessTokenStr});
+    accessToken = oAuth2Server.collections.accessToken.findOne({accessToken: accessTokenStr});
+  }
 
-    if (accessToken || process.env.NOAUTH || Meteor.settings.private.disableOauth) {
+  console.log('process.env.NOAUTH', process.env.NOAUTH);
+  if (accessToken || process.env.NOAUTH || Meteor.settings.private.disableOauth) {
 
-      if (accessToken) {
-        process.env.TRACE && console.log('accessToken', accessToken);
-        process.env.TRACE && console.log('accessToken.userId', accessToken.userId);
-      }
+    if (accessToken) {
+      process.env.TRACE && console.log('accessToken', accessToken);
+      process.env.TRACE && console.log('accessToken.userId', accessToken.userId);
+    }
 
-      var auditEvents = [];
+    var auditEvents = [];
 
+    console.log('req.params.param', req.params.param);
+
+    if(Package['clinical:blockchain'] || process.env.BLOCKCHAIN){
+      auditEvents = [];
+
+      
+
+      console.log('parseOptions(req.params.param)', parseOptions(req.params.param));
+      var blockchainQuery = parseOptions(req.params.param);
+      
+      // this shouldn't be in the clinical:hl7-resource-audit-event package
+      // need to refactor this elsewhere
+      
+      Meteor.call('getAuditEvents', blockchainQuery.patientAddress, blockchainQuery.userAddress, function(err,results) {
+        if(err){
+          console.log('err', err);
+          // Unauthorized
+          JsonRoutes.sendResult(res, {
+            code: 401
+          });
+        }
+        if(results) {
+          console.log('------------------------------------')
+          console.log('getAuditEvents()', results)
+
+          results.reverse(); // reverse order of array so newest events are showed first
+          results.forEach(function(result) {          
+            var blockchainEvent = new AuditEvent(result);
+
+            if(Package['clinical:hl7-resource-patient']){
+              var patient = Patients.findOne({'contractAddress' : result.address});
+              if(patient){
+                var patientName = '';
+                if(patient && patient.name && patient.name[0] && patient.name[0].text){
+                  patientName = patient.name[0].text;
+                } else {
+                  patientName = result.address;
+                }
+                console.log('blockchainEvent', blockchainEvent);
+                var fhirEvent = blockchainEvent.toFhir();
+        
+                fhirEvent.entity.push({
+                  "reference": {
+                    "display": patientName,
+                    "reference": "Patient/" + patient._id
+                  },
+                  "type": {
+                    "system": "http://hl7.org/fhir/object-type",
+                    "code": "2",
+                    "display": "System Object"
+                  },
+                  "lifecycle": {
+                    "system": "http://hl7.org/fhir/dicom-audit-lifecycle",
+                    "code": "6",
+                    "display": "Access / Use"
+                  }
+                });
+                console.log('blockchainEvent.toFhir()', fhirEvent);
+                
+                auditEvents.push(fhirEvent);
+              }
+            }          
+          });
+        }
+      });
+
+    } else {
+      //auditEvents = AuditEvents.find(databaseQuery);
       if (req.params.param.includes('_search')) {
         var searchLimit = 1;
         if (req && req.query && req.query._count) {
@@ -596,32 +668,29 @@ JsonRoutes.add("post", "/" + fhirVersion + "/AuditEvent/:param", function (req, 
 
         auditEvents = AuditEvents.find(databaseQuery, {limit: searchLimit});
 
-        var payload = [];
-
-        auditEvents.forEach(function(record){
-          payload.push(AuditEvents.prepForFhirTransfer(record));
-        });
       }
-
-      //process.env.TRACE && console.log('auditEvents', auditEvents);
-
-      // Success
-      JsonRoutes.sendResult(res, {
-        code: 200,
-        data: Bundle.generate(payload)
-      });
-    } else {
-      // Unauthorized
-      JsonRoutes.sendResult(res, {
-        code: 401
-      });
     }
-  } else {
-    // no oAuth server installed; Not Implemented
+
+
+    var payload = [];
+    auditEvents.forEach(function(record){
+      payload.push(AuditEvents.prepForFhirTransfer(record));
+    });
+
+    process.env.TRACE && console.log('payload', payload);
+
+    // Success
     JsonRoutes.sendResult(res, {
-      code: 501
+      code: 200,
+      data: Bundle.generate(payload)
+    });
+  } else {
+    // Unauthorized
+    JsonRoutes.sendResult(res, {
+      code: 401
     });
   }
+
 });
 
 
@@ -631,7 +700,7 @@ JsonRoutes.add("post", "/" + fhirVersion + "/AuditEvent/:param", function (req, 
 // Step 7 - AuditEvent Delete    
 
 JsonRoutes.add("delete", "/" + fhirVersion + "/AuditEvent/:id", function (req, res, next) {
-  process.env.DEBUG && console.log('DELETE /fhir-1.6.0/AuditEvent/' + req.params.id);
+  process.env.DEBUG && console.log('DELETE /fhir-3.0.0/AuditEvent/' + req.params.id);
 
   res.setHeader("Access-Control-Allow-Origin", "*");
 
@@ -693,3 +762,26 @@ JsonRoutes.add("delete", "/" + fhirVersion + "/AuditEvent/:id", function (req, r
 //   res.setHeader("Access-Control-Allow-Origin", "*");
 //   return next();
 // });
+
+
+
+
+parseOptions = function(criteria){
+  var result = {};
+    
+  // then we want to look at how many parameters were given
+  var paramsArray = [];
+  paramsArray = criteria.split('&');
+
+  paramsArray.forEach(function(param){
+    // for each parameter, figure out the field name and the value
+    var fieldArray = param.split('=');
+
+    // and we want to build up the object
+    result[fieldArray[0]] = fieldArray[1];
+  });
+  
+  console.log('parseCriteriaString', result);
+  // deserialize string into mongo query
+  return result;
+}
