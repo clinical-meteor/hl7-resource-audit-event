@@ -646,12 +646,12 @@ JsonRoutes.add("delete", "/" + fhirVersion + "/AuditEvent/:id", function (req, r
         process.env.TRACE && console.log('accessToken.userId', accessToken.userId);
       }
 
-      if (AuditEvents.find({_id: req.params.id}).count() === 0) {
-        // Gone
-        JsonRoutes.sendResult(res, {
-          code: 410
-        });
-      } else {
+      // if (AuditEvents.find({_id: req.params.id}).count() === 0) {
+      //   // Gone
+      //   JsonRoutes.sendResult(res, {
+      //     code: 410
+      //   });
+      // } else {
         AuditEvents.remove({_id: req.params.id}, function(error, result){
           if (result) {
             // No Content
@@ -666,7 +666,7 @@ JsonRoutes.add("delete", "/" + fhirVersion + "/AuditEvent/:id", function (req, r
             });
           }
         });
-      }
+      // }
 
 
     } else {
