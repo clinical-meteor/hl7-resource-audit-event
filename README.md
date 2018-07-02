@@ -1,4 +1,4 @@
-##clinical:hl7-resource-audit-event
+## clinical:hl7-resource-audit-event
 
 #### Licensing  
 
