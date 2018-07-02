@@ -118,7 +118,7 @@ jobs:
     - run: cd ../baseline && meteor add dispatch:mocha practicalmeteor:chai
     - run: cd ../baseline && meteor add clinical:hl7-resource-audit-event
     - run: cd ../baseline && mkdir imports 
-    - run: cp tests/AllergyIntolerances.tests.js ../baseline/imports/
+    - run: cp tests/AuditEvents.tests.js ../baseline/imports/
 
 
     #- run the app
