@@ -1,14 +1,20 @@
 ##clinical:hl7-resource-audit-event
 
-HL7 FHIR Resource - Audit Event
+#### Licensing  
 
---------------------------------------------  
-#### Schema Version 
-
-The resource in this package implements the `FHIR 3.0.0` version of the AuditEvent resource schema, specified at  [https://www.hl7.org/fhir/auditevent.html](https://www.hl7.org/fhir/auditevent.html).  
+![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
 
 
---------------------------------------------  
+#### Integration & Verification Tests  
+
+[![CircleCI](https://circleci.com/gh/clinical-meteor/hl7-resource-audit-event/tree/master.svg?style=svg)](https://circleci.com/gh/clinical-meteor/hl7-resource-audit-event/tree/master)
+
+
+#### API Reference  
+
+This package implements the FHIR List resource schema provided at [https://www.hl7.org/fhir/auditevent.html](https://www.hl7.org/fhir/auditevent.html).
+
+
 #### Installation  
 
 ````bash
@@ -26,7 +32,6 @@ meteor add clinical:autopublish
 ```
 
 
---------------------------------------------  
 #### Example    
 For more examples, see [https://www.hl7.org/fhir/auditevent-examples.html](https://www.hl7.org/fhir/auditevent-examples.html).
 
@@ -90,7 +95,7 @@ var newAuditEvent = {
 AuditEvents.insert(newAuditEvent);
 ```
 
---------------------------------------------  
+
 #### Extending the Schema  
 
 If you have extra fields that you would like to attach to the schema, extend the schema like so:  
@@ -108,7 +113,7 @@ ExtendedAuditEventSchema = new SimpleSchema([
 AuditEvents.attachSchema( ExtendedAuditEventSchema );
 ```
 
---------------------------------------------  
+
 #### Initialize a Sample AuditEvent  
 
 Call the `initializeAuditEvent` method to create a sample patient in the AuditEvents collection.
@@ -118,12 +123,13 @@ Meteor.startup(function(){
   Meteor.call('initializeAuditEvent');
 })
 ```
---------------------------------------------  
+
+
 #### Server Methods  
 
 This package supports `createAuditEvent`, `initializeAuditEvent`, and `dropAuditEvent` methods.
 
---------------------------------------------  
+
 #### REST API Points    
 
 This package supports the following REST API endpoints.  All endpoints require an OAuth token.  
@@ -144,7 +150,6 @@ If you would like to test the REST API without the OAuth infrastructure, launch 
 NOAUTH=true meteor
 ```
 
---------------------------------------------  
 #### Conformance Statement  
 
 This package conforms to version `FHIR 3.0.0`, as per the Touchstone testing utility.  
@@ -152,13 +157,13 @@ This package conforms to version `FHIR 3.0.0`, as per the Touchstone testing uti
 ![https://raw.githubusercontent.com/clinical-meteor/hl7-resource-audit-event/master/screenshots/Touchstone-ClientAssignedIds.png](https://raw.githubusercontent.com/clinical-meteor/hl7-resource-audit-event/master/screenshots/Touchstone-ClientAssignedIds.png)  
 
 ![https://raw.githubusercontent.com/clinical-meteor/hl7-resource-audit-event/master/screenshots/Touchstone-ServerAssignedIds.png](https://raw.githubusercontent.com/clinical-meteor/hl7-resource-audit-event/master/screenshots/Touchstone-ServerAssignedIds.png)  
-===============================
+
+
 #### Utilities  
 
 If you're working with HL7 FHIR Resources, we recommend using [Postman](https://chrome.google.com/webstore/detail/postman/fhbjgbiflinjbdggehcddcbncdddomop?hl=en).
 
 
---------------------------------------------  
 #### Licensing  
 
 ![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)
