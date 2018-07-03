@@ -12,7 +12,7 @@
 
 #### API Reference  
 
-This package implements the FHIR List resource schema provided at [https://www.hl7.org/fhir/auditevent.html](https://www.hl7.org/fhir/auditevent.html).
+This package implements the FHIR List resource schema provided at [https://www.hl7.org/fhir/DSTU2/auditevent.html](https://www.hl7.org/fhir/DSTU2/auditevent.html).
 
 
 #### Installation  
