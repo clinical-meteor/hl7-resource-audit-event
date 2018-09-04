@@ -1,6 +1,6 @@
 import { CardText, CardTitle } from 'material-ui/Card';
 import {Tab, Tabs} from 'material-ui/Tabs';
-import { GlassCard, VerticalCanvas, Glass } from 'meteor/clinical:glass-ui';
+import { GlassCard, VerticalCanvas, FullPageCanvas, Glass } from 'meteor/clinical:glass-ui';
 
 import { Meteor } from 'meteor/meteor';
 import { Session } from 'meteor/session';
@@ -47,7 +47,7 @@ export class AuditEventsPage extends React.Component {
     if(process.env.NODE_ENV === "test") console.log('In AuditEventsPage render');
     return (
       <div id='auditEventsPage'>
-        <VerticalCanvas>
+        <FullPageCanvas>
           <GlassCard height='auto'>
             <CardTitle title='AuditEvents' />
             <CardText>
@@ -69,7 +69,7 @@ export class AuditEventsPage extends React.Component {
              </Tabs> */}
             </CardText>
           </GlassCard>
-        </VerticalCanvas>
+        </FullPageCanvas>
       </div>
     );
   }
