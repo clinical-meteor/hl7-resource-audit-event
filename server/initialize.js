@@ -39,7 +39,7 @@ Meteor.methods({
 
       console.log('initializeEvent', initializeEvent)
 
-      AuditEvents.insert(initializeEvent, {validate: false}, function(error, result){
+      AuditEvents.insert(initializeEvent, {validate: true}, function(error, result){
         if(error) console.error('error.invalidKeys', error.invalidKeys)
         if(result) console.error(result)
       })

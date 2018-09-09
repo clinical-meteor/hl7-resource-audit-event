@@ -13,7 +13,6 @@ Package.onUse(function (api) {
   api.use('mongo');
   api.use('ecmascript@0.9.0');
 
-  // api.use('aldeed:simple-schema@1.3.3');
   api.use('aldeed:collection2@3.0.0');
   api.use('clinical:hl7-resource-datatypes@4.0.0');
   api.use('clinical:hl7-resource-bundle@1.4.0');
