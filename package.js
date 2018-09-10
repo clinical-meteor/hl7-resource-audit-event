@@ -1,6 +1,6 @@
 Package.describe({
   name: 'clinical:hl7-resource-audit-event',
-  version: '1.6.4',
+  version: '1.6.5',
   summary: 'HL7 FHIR Resource - AuditEvent',
   git: 'https://github.com/clinical-meteor/hl7-resource-audit-event',
   documentation: 'README.md'
@@ -39,5 +39,7 @@ Package.onUse(function (api) {
 
 
 Npm.depends({
-  "simpl-schema": "1.5.3"
+  "simpl-schema": "1.5.3",
+  "moment": "2.22.2",
+  "lodash": "4.17.4"
 })

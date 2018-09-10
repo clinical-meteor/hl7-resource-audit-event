@@ -1,3 +1,5 @@
+import { get } from 'lodash';
+
 // if the database is empty on server start, create some sample data.
 Meteor.startup(function () {
     if (AuditEvents.find().count() === 0) {
@@ -39,7 +41,7 @@ Meteor.methods({
 
       console.log('initializeEvent', initializeEvent)
 
-      AuditEvents.insert(initializeEvent, {validate: true}, function(error, result){
+      AuditEvents.insert(initializeEvent, {validate: get(Meteor, 'settings.public.defaults.schemas.validate', false)}, function(error, result){
         if(error) console.error('error.invalidKeys', error.invalidKeys)
         if(result) console.error(result)
       })
