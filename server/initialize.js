@@ -26,20 +26,21 @@ Meteor.methods({
         "source" : { // R!  Audit Event Reporter
           "site" : Meteor.absoluteUrl(), // Logical source location within the enterprise
         }
-      }
+      };
       
-      console.log('initializeEvent', initializeEvent)
-      // console.log('AuditEventSchema', AuditEventSchema)
+      console.log('AuditLog:  System Initialization')
+      process.env.DEBUG && console.log('AuditLog.initializeEvent', initializeEvent)
 
       let auditEventValidator = AuditEventSchema.newContext()
 
       auditEventValidator.validate(initializeEvent);
 
-      console.log('IsValid: ', auditEventValidator.isValid())
-      console.log('ValidationErrors: ', auditEventValidator.validationErrors());
-      console.log('AuditEvents.find().count()', AuditEvents.find().count());
+      // console.log('IsValid: ', auditEventValidator.isValid())
+      // console.log('ValidationErrors: ', auditEventValidator.validationErrors());
+      // console.log('AuditEvents.find().count()', AuditEvents.find().count());
 
       console.log('initializeEvent', initializeEvent)
+      process.env.DEBUG && console.log('AuditLog.initializeEvent.validated', initializeEvent)
 
       AuditEvents.insert(initializeEvent, {validate: get(Meteor, 'settings.public.defaults.schemas.validate', false)}, function(error, result){
         if(error) console.error('error.invalidKeys', error.invalidKeys)
