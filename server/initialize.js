@@ -1,16 +1,11 @@
 import { get } from 'lodash';
 
-// if the database is empty on server start, create some sample data.
-Meteor.startup(function () {
-    if (AuditEvents.find().count() === 0) {
-      Meteor.call('initializeEventLog')
-    }
-});
-
 
 Meteor.methods({
   initializeEventLog: function(){
-    console.log('No AuditEvents found.  Initializing the HIPAA Audit Event Log.');
+
+    if (AuditEvents.find().count() === 0) {
+      console.log('No AuditEvents found.  Initializing the HIPAA Audit Event Log.');
 
       var initializeEvent = {
         "resourceType" : "AuditEvent",
@@ -46,5 +41,9 @@ Meteor.methods({
         if(error) console.error('error.invalidKeys', error.invalidKeys)
         if(result) console.error(result)
       })
+    } else {
+      console.log('Events found in AuditLog.  No need to initialize.');
+     }
   }
 })
+

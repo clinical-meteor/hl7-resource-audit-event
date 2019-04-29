@@ -38,7 +38,7 @@ export default class AuditEventsTable extends React.Component {
       data.auditEvents = this.props.data;
     } else {
       if(AuditEvents.find().count() > 0){
-        data.auditEvents = AuditEvents.find().fetch();
+        data.auditEvents = AuditEvents.find({},{$ort: {recorded: -1}}).fetch();
       }  
     }
 
@@ -99,7 +99,8 @@ export default class AuditEventsTable extends React.Component {
     for (var i = 0; i < this.data.auditEvents.length; i++) {
       var newRow = {
         type: '',
-        subtype: '',        
+        subtype: '',   
+        recorded: '',     
         action: '',
         outcome: '',
         outcomeDesc: '',
@@ -121,23 +122,25 @@ export default class AuditEventsTable extends React.Component {
         newRow.subtype = get(auditEvent, 'subtype[0].code')
         newRow.action = get(auditEvent, 'action')
         newRow.outcome = get(auditEvent, 'outcome')
+        newRow.recorded = get(auditEvent, 'recorded')
         // newRow.outcomeDesc = get(auditEvent, 'outcomeDesc')
         newRow.agentName = get(auditEvent, 'agent[0].name')
         newRow.entityName = get(auditEvent, 'entity[0].name')
         newRow.sourceSite = get(auditEvent, 'source.site')
       }
 
-      console.log('newRow', newRow)
+      // console.log('newRow', newRow)
 
       tableRows.push(
         <tr key={i} className="auditEventRow" style={{cursor: "pointer"}} onClick={ this.rowClick.bind('this', this.data.auditEvents[i]._id)} >
           { this.renderToggles(this.data.displayToggle, this.data.auditEvents[i]) }
-          <td className='type' style={this.displayOnMobile()} >{ newRow.type }</td>
+          {/* <td className='type' style={this.displayOnMobile()} >{ newRow.type }</td> */}
           {/* <td className='subtype'>{ newRow.subtype }</td> */}
+          <td className='recorded'>{ moment(newRow.recorded).format("YYYY-MM-DD hh:dd") }</td>
+          <td className='agentName'>{ newRow.agentName }</td>
           <td className='action'>{ newRow.action }</td>
           <td className='outcome'>{ newRow.outcome }</td>
           {/* <td className='outcomeDesc'>{ newRow.outcomeDesc }</td> */}
-          <td className='agentName'>{ newRow.agentName }</td>
           <td className='entityName' style={this.displayOnMobile()}  >{ newRow.entityName }</td>
           <td className='sourceSite'>{ newRow.sourceSite }</td>
           { this.renderDate(this.data.displayDates, this.data.auditEvents[i].performedDateTime) }
@@ -150,12 +153,13 @@ export default class AuditEventsTable extends React.Component {
         <thead>
           <tr>
             { this.renderTogglesHeader(this.data.displayToggle) }
-            <th className='type' style={this.displayOnMobile()} >Type</th>
+            {/* <th className='type' style={this.displayOnMobile()} >Type</th> */}
             {/* <th className='subtype'>Subtype</th> */}
+            <th className='recorded'>Recorded</th>
+            <th className='agentName'>Agent Name</th>
             <th className='action'>Action</th>
             <th className='outcome'>Outcome</th>
             {/* <th className='outcomeDesc'>Outcome Description</th> */}
-            <th className='agentName'>Agent Name</th>
             <th className='entityName' style={this.displayOnMobile()}  >Entity Name</th>
             <th className='sourceSite'>Source</th>
             { this.renderDateHeader(this.data.displayDates) }
